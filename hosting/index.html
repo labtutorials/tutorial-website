@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Andreja Stajduhar">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Hosting/Crediting - lab tutorials</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../extra.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="..">lab tutorials</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../partone/" class="nav-link">Getting started</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Experiments <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../second/" class="dropdown-item">2nd experiment</a>
+</li>
+                                    
+<li>
+    <a href="../third/" class="dropdown-item">3rd experiment</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Hosting/Crediting</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../advancedtopics/" class="nav-link">Advanced topics</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../resources/" class="nav-link">Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../third/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../advancedtopics/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#hosting-on-pavlovia" class="nav-link">Hosting on Pavlovia</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#crediting-participants" class="nav-link">Crediting participants</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#hosting-on-cognitionrun" class="nav-link">Hosting on Cognition.run</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="hosting-on-pavlovia">Hosting on Pavlovia</h2>
+<p>Most of the time, we will want to host our experiment files on a hosting website like Pavlovia. Our participant data files will also be housed on their servers so we need to make sure we integrate jsPsych with Pavlovia successfully so that our experiment works as intended. </p>
+<p>Luckily, a lot of the code-y bits that are needed to make jsPsych work seemlessly with Pavlovia have already been created for us. We just need to alter our experiment script to take advantage of a custom plugin made by the team at Pavlovia for jsPsych. Our <code>&lt;head&gt;</code> section will look a little different than how it looks when we run experiments locally. Pavlovia offers some <a href="https://pavlovia.org/js-psych">documentation</a> on the kinds of changes we'll need to make. Let's do that now: </p>
+<pre><code>&lt;head&gt;
+    &lt;script type="text/javascript" src="lib/vendors/jspsych-6.0.0/jspsych.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" type="text/css" href="lib/vendors/jspsych-6.0.0/css/jspsych.css"/&gt;
+    &lt;script src="lib/vendors/jspsych-6.0.0/plugins/jspsych-same-different-html.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="lib/jspsych-pavlovia-3.0.6.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p>Pavlovia hosts the full jsPsych library and its custom plugin on its servers so we don't need to push our own library to Gitlab when we're ready to run it on Pavlovia. </p>
+<p>Besides the changes in the <code>&lt;head&gt;</code> section, we will also need to initialize Pavlovia once at the very beginning of the experiment and once more, at the end of the experiment script. If we don't do this, data will <b>not</b> be saved on Pavlovia's servers. Here is what our experiment script will have to look like: </p>
+<pre><code>&lt;head&gt;
+    &lt;script type="text/javascript" src="lib/vendors/jspsych-6.0.0/jspsych.js"&gt;&lt;/script&gt;
+    &lt;link rel="stylesheet" type="text/css" href="lib/vendors/jspsych-6.0.0/css/jspsych.css"/&gt;
+    &lt;script src="lib/vendors/jspsych-6.0.0/plugins/jspsych-same-different-html.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="lib/vendors/jquery-2.2.0.min.js"&gt;&lt;/script&gt;
+    &lt;script type="text/javascript" src="lib/jspsych-pavlovia-3.0.6.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        // more on this variable below
+        let timeline = [];
+
+        // init connection with Pavlovia
+            var pavlovia_init = {
+            type: "pavlovia",
+            command: "init"
+        };
+        timeline.push(pavlovia_init);
+
+        // EXPERIMENT VARIABLES GO HERE
+
+        // finish connection with Pavlovia at the end of script, before the initialization object
+            var pavlovia_finish = {
+            type: "pavlovia",
+            command: "finish"
+            };
+        timeline.push(pavlovia_finish);
+
+        jsPsych.init({
+            timeline: timeline
+        })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Recommendation</p>
+<p>Don't include the Pavlovia-specific <code>head</code> section while creating your experiment on your machine. Save this for the last step, before pushing to Gitlab. You will want to test run your experiment locally and it will not work if you're attempting to source your library from Pavlovia.</p>
+</div>
+
+<h2 id="crediting-participants">Crediting participants</h2>
+<h3 id="prolific-urpp">Prolific &amp; URPP</h3>
+<p>After our participants have completed the experiment, URPP and Prolific both offer completion URLS that we can use to credit participants. We want to place the completion URL in the <code>on_finish:</code> parameter, which exclusively uses functions. If enabled, we may also want to catch some participant-specific information embedded in the experiment URL itself to use for crediting. jsPsych comes with a built-in function to do this. Let's explore how to implement this function with our custom redirect function:</p>
+<pre><code>&lt;body&gt;
+    &lt;script&gt;
+    var timeline = [];
+
+    // EXPERIMENT VARIABLES GO HERE ...
+
+    jsPsych.init({
+        timeline: timeline,
+        on_finish: function() {
+            let display_element = jsPsych.getDisplayElement(); // let's also give participants a brief message before we redirect them. This will help with formatting that on a webpage
+            display_element.innerHTML = "&lt;p&gt;You have completed the experiment.&lt;/p&gt;" + 
+                                        "&lt;p&gt;Thank you for participating!&lt;/p&gt;" + 
+                                        "&lt;p&gt;Please wait to be redirected back to URPP.&lt;/p&gt;"
+            let ppn = jsPsych.data.urlVariables()['participant'] // this parses the URL and looks for the word 'participant'
+            setTimeout( function() { window.location.assign("https://yorku.sona-systems.com/webstudy_credit.aspx?experiment_id=3909&amp;credit_token=87648300f55a4c4c969da7a52e379965&amp;survey_code="+ppn) }, 5000) // redirect to specified URL after a delay of 5 seconds
+            // here we are redirecting back to URPP and using the value obtained by our previously-defined variable ppn to credit each unique participant. 
+        }
+    })
+</code></pre>
+<p>For sites that provide you with a completion URL (like Prolific) that doesn't require a unique participant identifier, you can simplify the above function to simply display a message and redirect back to the site using the unique completion URL, all without parsing the experiment URL: </p>
+<pre><code>&lt;body&gt;
+    &lt;script&gt;
+    var timeline = [];
+
+    // EXPERIMENT VARIABLES GO HERE ...
+
+    jsPsych.init({
+        timeline: timeline,
+        on_finish: function() {
+            let display_element = jsPsych.getDisplayElement();
+            display_element.innerHTML = "&lt;p&gt;You have completed the experiment.&lt;/p&gt;"+
+                                        "&lt;p&gt;Thank you for participating!&lt;/p&gt;"+
+                                        "&lt;p&gt;Please wait to be redirected back to Prolific.&lt;/p&gt;"
+            setTimeout( function() { window.location.assign("unique prolific completion URL") }, 5000) // redirect after a delay of 5 seconds
+        }
+    })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Recommendation</p>
+<p>Set the delay for around 8000ms when using Pavlovia as a hosting service. Communication with Pavlovia's servers isn't always immediate and it may take a few seconds to transfer data! Participant data files will fail to save if you redirect too soon. I've found a buffer of 8000ms to work best.</p>
+</div>
+
+<h3 id="mturk-participants">mTurk participants</h3>
+<p>If we are recruiting participants from mTurk, we will have to give them a completion code at the end which they can use to get credit on mTurk. Luckily, jsPsych once again has a built-in module called 'jsPsych.turk' for interacting with mTurk. We will want to display a little message at the end of the experiment that displays the participant's code. We will do in the same way we displayed our message in the redirect function. Let's alter our <code>on_finish:</code> parameter now to be mTurk-compatible:</p>
+<pre><code>&lt;body&gt;
+    &lt;script&gt;
+    var timeline = [];
+
+    // EXPERIMENT VARIABLES GO HERE ...
+
+    jsPsych.init({
+        timeline: timeline,
+        on_finish: function() {
+            const turk_info = jsPsych.turk.turkInfo(); // this returns an object with 6 properties that we can save in participant CSV files
+            const c_code = completion_code('ABCD', 'EFGH') // we can make these strings any combo of letters we want
+            // lets save those 6 properties we got earlier to each CSV file
+            jsPsych.data.addProperties(
+                {
+                    workerId: turk_info.workerId,
+                    assignmentId: turk_info.assignmentId,
+                    hitId: turk_info.hitId,
+                    turk_code: set_c
+                }
+                );
+                end_display(set_c)
+            }
+            })
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<h2 id="hosting-on-cognitionrun">Hosting on Cognition.run</h2>
+<p><a href="https://www.cognition.run/">Cognition.run</a> is a brand new (launched in 2020) jsPsych-only hosting service. As more features become available, I will update this site to reflect those changes. For now, we will discuss what's available and how it differs with Pavlovia so that you can make the best decision about which hosting site to use. </p>
+<p>Much like Pavlovia, Cognition.run houses an up-to-date jsPsych library on its servers. It also allows you to upload additional JS or CSS scripts that your experiment may use. <em>As of the time of writing, there is no support for uploading edited or custom plugins</em>, though these changes are coming (another great reason to check the jsPsych discussion forum regularly).</p>
+<p>Unlike Pavlovia, Cognition.run doesn't require you to "push" anything to a repository. You can either copy and paste your existing experiment code directly into the online code editor (and preview a live version of your experiment), or you can make a new experiment directly on the site. As a result, <em>you don't have an HTML experiment file</em> so there is no need to know much about HTML tags (<code>&lt;head&gt;</code>, <code>&lt;script&gt;</code>, etc.). You can simply start defining your experiment variables right away. This also means that some of the constraints of having the experiment encased in markdown language are gone -- you're free to use external scripts within experiment variables if you want to. </p>
+<p>Besides these minor changes in the way you write your experiment script, the fundamental structure of each jsPsych experiment remains largely unchanged. You are still using jsPsych in the way defined in this tutorial, with some added flexbility and ease that Cognition.run provides. All of our crediting and redirect functions can still be used as outlined above.</p>
+<p>Changing webpage elements in Cognition.run will have to be done by uploading your own CSS file that defines the style elements of the page. </p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Andreja Stajduhar</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

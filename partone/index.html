@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="Andreja Stajduhar">
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Getting started - lab tutorials</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css">
+        <link href="../extra.css" rel="stylesheet">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-dark">
+            <div class="container">
+                <a class="navbar-brand" href="..">lab tutorials</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Getting started</a>
+                            </li>
+                            <li class="dropdown">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Experiments <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../second/" class="dropdown-item">2nd experiment</a>
+</li>
+                                    
+<li>
+    <a href="../third/" class="dropdown-item">3rd experiment</a>
+</li>
+                                </ul>
+                            </li>
+                            <li class="navitem">
+                                <a href="../hosting/" class="nav-link">Hosting/Crediting</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../advancedtopics/" class="nav-link">Advanced topics</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../resources/" class="nav-link">Resources</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href=".." class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../second/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#downloading-jspsych" class="nav-link">Downloading jsPsych</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#implementing-jspsych" class="nav-link">Implementing jsPsych</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#coding-our-first-experiment" class="nav-link">Coding our first experiment</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h2 id="downloading-jspsych">Downloading jsPsych</h2>
+<p>To download jsPsych, please click <a href="">here</a>. Please select the latest release to ensure you have access to the newest plugins.</p>
+<h2 id="implementing-jspsych">Implementing jsPsych</h2>
+<p>We can use jsPsych in two ways: either locally (i.e. on your own machine) or using a hosting website, such as Pavlovia or the new jsPsych-only Cognition.run. Whether we run jsPsych locally or host the experiment scripts somewhere, we will have to make changes to our script to ensure it all works.</p>
+<h4 id="running-locally">Running locally</h4>
+<p>To run jsPsych locally, we need to place the plugin library in our project directory, where our experiment script will also be housed. Make a project directory called <b>my-project</b> on the desktop now. After you've made the folder, grab and drop the jsPsych plugin libary into the folder. </p>
+<p>Now we're ready to make our experiment script. Using your favourite text editor, create an empty .html file. Because we're going to be making a same-different task, let's call it <b>same-diff.html</b>. Html files have a standard layout composed of <em>tags</em>, so let's follow that layout in our experiment script: </p>
+<pre><code>&lt;html&gt;
+&lt;head&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+    &lt;/script&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</code></pre>
+<p>The <code>&lt;head&gt;</code> section is by far the most important when using jsPsych. Here, we will place all the plugins we plan on using. If a plugin isn't listed in the <code>&lt;head&gt;</code> section, the part of your experiment that relies on that plugin <em>will not work</em>. </p>
+<p>Before we call any plugins, there are a few standard scripts which handle the formatting of experiments and come in the plugin library. Let's place those in our <code>&lt;head&gt;</code> section before we do anything else: </p>
+<pre><code>&lt;head&gt;
+    &lt;script src="jspsych-6.1.0/css/jspsych.css"&gt;&lt;/script&gt;
+    &lt;script src="jspsych-6.1.0/jspsych.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p>For our task, we will be using the aptly named 'jspsych-same-different-html.js' plugin so let's put that in our <code>&lt;head&gt;</code> section now:</p>
+<pre><code>&lt;head&gt;
+    &lt;script src="jspsych-6.1.0/css/jspsych.css"&gt;&lt;/script&gt;
+    &lt;script src="jspsych-6.1.0/jspsych.js"&gt;&lt;/script&gt;
+    &lt;script src="jspsych-6.1.0/plugins/jspsych-same-different-html.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+</code></pre>
+<p>As we go along, we may need to use more plugins. As long as we remember to place all the plugins in the appropriate section, there is no limit to the amount of plugins we can use. </p>
+<div class="admonition warning">
+<p class="admonition-title">Note</p>
+<p>Always remember to keep your experiment files and the jsPsych library <em>in the same directory</em>.</p>
+</div>
+
+<h2 id="coding-our-first-experiment">Coding our first experiment</h2>
+<p>Now that we have successfully integrated the plugins into our experiment script, we're ready to start coding our experiment! </p>
+<p>All jsPsych experiment variables are pushed to a timeline, which we must initialize. Going forward, everything related to our experiment will be placed within the <code>&lt;body&gt;</code> and <code>&lt;script&gt;</code> tags. Let's create a timeline variable there now:</p>
+<pre><code>&lt;head&gt;
+    &lt;link rel="stylesheet" href="jspsych-6.1.0/css/jspsych.css"&gt;&lt;/link&gt;
+    &lt;script src="jspsych-6.1.0/jspsych.js"&gt;&lt;/script&gt;
+    &lt;script src="jspsych-6.1.0/plugins/jspsych-html-keyboard-response.js"&gt;&lt;/script&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;script&gt;
+        var timeline = [];
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>We have created a timeline variable that consists of an empty array. Every variable that we declare for our experiment will be pushed to this timeline variable, which is what the participant will see on their screen. </p>
+<p>Let's stop for a moment and remind ourselves about our experiment structure so that we know what to code next. Our task is a same-different task, which means that we can either show images or words. Let's assume we will be asking participants to judge whether the words presented are the same or different. Ideally, we would like our trial to have a trial duration parameter so that the words are presented in quick succession, one after the other. We can get a sense of each plugin's parameters by opening up the plugin script. Everything contained in <code>var plugin = {}</code> are the accepted parameters for the plugin that you can use in your experiment.</p>
+<p>Let's make one trial of our experiment now: </p>
+<pre><code>&lt;body&gt;
+    &lt;script&gt;
+        var timeline = [];
+
+        var trial_1 = {
+            type: 'same-different-html',
+            stimulus: ['&lt;p&gt;Walk&lt;/p&gt;', '&lt;p&gt;Run&lt;/p&gt;'], // an array of the words the participant will see
+            prompt: "&lt;p&gt;Press S if the words mean the same thing. Press D if they mean different things.&lt;/p&gt;",
+            same_key: 'S',
+            different_key: 'D',
+            first_stim_duration: 1000, // time should always in miliseconds
+            gap_duration: 500,
+            second_stim_duration: 1000,
+            answer: 'different'
+        }
+
+        timeline.push(trial_1)
+
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>If we wanted to run this file locally right now, it wouldn't work. This is because jsPsych needs a few things each time you create an experiment with it. One of those things is the timeline variable, as mentioned, and another is the <em>initialization object</em>. Let's create that now:</p>
+<pre><code>&lt;body&gt;
+    &lt;script&gt;
+        // timeline
+        var timeline = [];
+
+        // first trial
+        var trial_1 = {
+            type: 'same-different-html',
+            stimulus: ['&lt;p&gt;Walk&lt;/p&gt;', '&lt;p&gt;Run&lt;/p&gt;'], // an array of the words the participant will see
+            prompt: "&lt;p&gt;Press S if the words mean the same thing. Press D if they mean different things.&lt;/p&gt;",
+            same_key: 'S',
+            different_key: 'D',
+            first_stim_duration: 1000, // time should always in miliseconds
+            gap_duration: 500,
+            second_stim_duration: 1000,
+            answer: 'different'
+        }
+
+        // pushing trial to timeline
+        timeline.push(trial_1)
+
+        // initialization object
+        jsPsych.init({
+            timeline: timeline,
+            on_finish: function() { 
+                jsPsych.data.get().localSave('csv', 'mydata.csv')
+            }
+        })
+
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<p>Looking good! You may have noticed that we have enabled data saving in the <code>on_finish:</code> parameter. jsPsych has a series of built-in functions that you can place after this parameter. For more information on that, check out the official <a href="">documentation</a>. The function we're using locally saves the participant response file as a CSV. You can name the CSV file anything you want. </p>
+<p>It can be especially useful to place custom functions in the <code>on_finish:</code> parameter when you need to redirect participants back to the site where they came from (like a recruitment site, for instance) so that they can receive credit for doing your experiment. We will explore that in more depth in the <a href="../hosting/">Hosting &amp; jsPsych</a> tab. </p>
+<p>For now, if we want to add more trials, all we need to do is add another trial variable, define it using the same or different parameters (provided they are accepted by the plugin. Remember to check the plugin script for that kind of information), and push it to the timeline. We can also use other plugins to define other types of trials. Let's explore adding a welcome trial and a consent trial before the participant begins the experiment: </p>
+<pre><code>&lt;body&gt;
+    &lt;script&gt;
+        var timeline = [];
+
+        // welcome trial
+        var welcome = {
+            type: 'html-keyboard-response',
+            stimulus: 'Welcome to the experiment! Press any key to begin.' // we can also use markdown language with this plugin
+            choices: jsPsych.ALL_KEYS, // we are allowing any keyboard input
+        }
+        timeline.push(welcome)
+
+        // consent function
+        var ask_consent = function(elem) {
+            if(document.getElementById('consent_checkbox').checked) { // check to make sure participant consented
+                return true; // show next variable pushed to timeline
+            }
+            else {
+                alert("Please consent before continuing."); // don't let participant proceed unless checkbox is checked
+                return false; // obstruct next variable from timeline
+            }
+        }
+
+        // consent trial
+        var consent = {
+            type: 'external-html',
+            url: 'consent.html' // the name of your consent script
+            cont_btn: 'Start', 
+            check_fn: ask_consent
+
+        }
+        timeline.push(consent)
+
+        // TRIAL_1 FROM ABOVE GOES HERE
+
+        // initialization object
+        jsPsych.init({
+            timeline: timeline,
+            on_finish: function() { 
+                jsPsych.data.get().localSave('csv', 'mydata.csv')
+            }
+        })
+
+    &lt;/script&gt;
+&lt;/body&gt;
+</code></pre>
+<div class="admonition warning">
+<p class="admonition-title">Remember</p>
+<p>Any new plugins that we introduce in our experiment must be listed in the <code>head</code> section.</p>
+</div>
+
+<p>While the experiment we coded above is very basic, the foundation is the same for more complex experiments. That is to say, the experiment variables will <em>always</em> be passed to the timeline object. How we pass variables to the timeline object may vary (i.e. we can choose to push an experiment variable to the timeline object within the variable itself), but the underlying structure remains the same. </p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2020 Andreja Stajduhar</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>
+                    From here you can search these documents. Enter
+                    your search terms below.
+                </p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
