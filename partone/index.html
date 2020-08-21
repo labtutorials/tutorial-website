@@ -18,7 +18,16 @@
         <script src="../js/jquery-1.10.2.min.js" defer></script>
         <script src="../js/bootstrap.min.js" defer></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-        <script>hljs.initHighlightingOnLoad();</script> 
+        <script>hljs.initHighlightingOnLoad();</script>
+        <script>
+            (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+            m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+            })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+            ga('create', 'UA-175887011-1', 'mkdocs.org');
+            ga('send', 'pageview');
+        </script> 
     </head>
 
     <body>
@@ -118,7 +127,7 @@
                     <div class="col-md-9" role="main">
 
 <h2 id="downloading-jspsych">Downloading jsPsych</h2>
-<p>To download jsPsych, please click <a href="">here</a>. Please select the latest release to ensure you have access to the newest plugins.</p>
+<p>To download jsPsych, please click <a href="https://github.com/jspsych/jsPsych/releases">here</a>. Please select the latest release to ensure you have access to the newest plugins.</p>
 <h2 id="implementing-jspsych">Implementing jsPsych</h2>
 <p>We can use jsPsych in two ways: either locally (i.e. on your own machine) or using a hosting website, such as Pavlovia or the new jsPsych-only Cognition.run. Whether we run jsPsych locally or host the experiment scripts somewhere, we will have to make changes to our script to ensure it all works.</p>
 <h4 id="running-locally">Running locally</h4>
@@ -225,6 +234,11 @@
 &lt;/body&gt;
 </code></pre>
 <p>Looking good! You may have noticed that we have enabled data saving in the <code>on_finish:</code> parameter. jsPsych has a series of built-in functions that you can place after this parameter. For more information on that, check out the official <a href="">documentation</a>. The function we're using locally saves the participant response file as a CSV. You can name the CSV file anything you want. </p>
+<div class="admonition warning">
+<p class="admonition-title">Rule of thumb!</p>
+<p>Errors occuring in your experiment script will appear in your browser console. It's a good idea to have that open and off to the side as you test your experiment. You can also test the output of certain lines of code or even preview the contents of arrays by calling console.log() in your script.</p>
+</div>
+
 <p>It can be especially useful to place custom functions in the <code>on_finish:</code> parameter when you need to redirect participants back to the site where they came from (like a recruitment site, for instance) so that they can receive credit for doing your experiment. We will explore that in more depth in the <a href="../hosting/">Hosting &amp; jsPsych</a> tab. </p>
 <p>For now, if we want to add more trials, all we need to do is add another trial variable, define it using the same or different parameters (provided they are accepted by the plugin. Remember to check the plugin script for that kind of information), and push it to the timeline. We can also use other plugins to define other types of trials. Let's explore adding a welcome trial and a consent trial before the participant begins the experiment: </p>
 <pre><code>&lt;body&gt;
