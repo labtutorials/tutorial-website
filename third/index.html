@@ -118,14 +118,22 @@
 
 <h2 id="adapting-a-psychopy-experiment-to-jspsych">Adapting a Psychopy experiment to jsPsych</h2>
 <p>Let's attempt to adapt an existing Psychopy experiment to jsPsych. For this experiment, we will be showing participants the Ponzo illusion and asking them to judge the length of two bars. The participant will be given the choice of pressing 'f' if the image furthest from them appears smaller or, alternatively, 'k' if the image closest to them appears smaller. The duration of each image is 3000 miliseconds, after which point the trial continues, with or without a participant response. We will also include a break for participants after half of the images have been shown.</p>
+<p>If you'd like to try coding the experiment yourself, you will need to download the images, which you can do by cloning the tutorial Github repo <a href="https://github.com/labtutorials/tutorial-website">here</a>.</p>
 <p>All of the ways we have attempted to build an eperiment thus far -- a series of single trials pushed to a timeline or a nested timeline containing timeline variables -- can be used to build this experiment. However, an experiment script consisting of individual trials may not be the most efficient way to build this experiment, and nested are designed to be used when we want to loop through <em>different types</em> of trials. Here, what we really want to do is define one type of trial, using one plugin over and over, while our images are swapped out and randomized with each iteration. Let's explore how to do that and, in the process, introduce a different way to push variables to a timeline that may prove useful for more complex experiments down the road. </p>
 <p>We will be building this experiment using the new jsPsych hosting service Cognition.run, which doesn't require our experiment script to follow any standard format like we would have to when hosting on Pavlovia (see <a href="../hosting/">Hosting/Crediting</a> for more information). </p>
 <p>As always, we will start by defining our timeline followed by our trial variables and finally our trials:</p>
 <pre><code>var timeline = [];
 
 // let's define our trial variables
-const images = ['Ponzo_1.png', 'Ponzo_2.png', 'Ponzo_3.png', 'Ponzo_4.png', 'Ponzo_5.png']; // our initial array of images for trial 1
-const images_2 = ['Ponzo_6.png', 'Ponzo_7.png', 'Ponzo_8.png', 'Ponzo_9.png', 'Ponzo_10.png']; // our second array of images for trial 2
+
+let image_set_one = []; // first set of 5 images
+for(let i = 1; i &lt;= 5; i++){
+    images.push('Ponzo_' + i + '.png')
+}
+let image_set_two = []; // second set of 5 images
+for(let i = 6; i &lt;= 10; i++){
+    images.push('Ponzo_' + i + '.png')
+}
 
 // allowed keys
 const letter_keys = ['k', 'f'];
@@ -134,8 +142,8 @@ const letter_keys = ['k', 'f'];
 let trial_length = 3000
 
 // our randomized image arrays
-var my_shuffled_images = jsPsych.randomization.repeat(images, 1); 
-var my_second_shuffled_images = jsPsych.randomization.repeat(images_2, 1)
+var my_shuffled_images = jsPsych.randomization.repeat(image_set_one, 1); 
+var my_second_shuffled_images = jsPsych.randomization.repeat(image_set_two, 1);
 
 //welcome trial
 var welcome = {
@@ -146,27 +154,39 @@ var welcome = {
 timeline.push(welcome)
 
 //trial 1
-my_shuffled_images.forEach(my_shuffled_images =&gt; {
-    timeline.push({
-        type: 'image-keyboard-response',
-        stimulus: my_shuffled_images, // we want to use the array that will be randomized with each iteration!
-        choices: letter_keys,
-        trial_duration: trial_length
-    })
-})
+    for (let i = 0; i &lt;= my_shuffled_images.length; i++) {
+        let trial_1 = [];   
+            trial_1 = {
+                type: 'image-keyboard-response',
+                stimulus: my_shuffled_images[i],
+                choices: letter_keys,
+                trial_duration: trial_length
+            }
+            timeline.push(trial_1)
+            feedback = {
+                type: 'html-keyboard-response',
+                stimulus: '&lt;p&gt;Please choose a key.&lt;/p&gt;',
+                choices: jsPsych.ALL_KEYS
+            }
+            if_node = {
+                timeline: [feedback],
+                conditional_function: function() {
+                    let choice = jsPsych.data.get().last(1).values()[0];
+                    if(choice.key_press == null){
+                        return true;                     
+                    } else {
+                        return false;
+                    }
+                }
+            }
+            if (i === 4){
+                break;
+            }
+            timeline.push(if_node)
+        }
 </code></pre>
-<p>Let's stop for a second to talk about trial one. Here we have introduced a new way to push variables to the timeline -- that is, within the variable itself! We have also introduced the .forEach method, which functions a lot like a for loop, except that we don't have to define a conditional statement so we don't have to worry about changing this statement if we ever decide to expand our array. Instead, the trial we have defined within the curly braces will iterate <em>for each</em> image in our array, no matter how long or short it is. Let's now define our break trial followed by our second trial:</p>
-<pre><code>//trial 1
-my_shuffled_images.forEach(my_shuffled_images =&gt; {
-    timeline.push({
-        type: 'image-keyboard-response',
-        stimulus: my_shuffled_images, // we want to use the array that will be randomized with each iteration!
-        choices: letter_keys,
-        trial_duration: trial_length
-    })
-})
-
-// break trial
+<p>Let's stop for a second to talk about trial one. Here we have defined our first trial, containing our first randomized set of five images. We also want to provide some feedback (trial feedback) to the participant based on some condition, defined in the if_node. The if_node contains a conditional function parameter which, if true, pushes the feedback trial to the timeline and thus to the participant. If the condition evaluates to false, the feedback trial is skipped or hidden from the timeline and thus from the participant as well. Within the conditional function, we have pulled data from the last trial (trial_1) and stored it within the choice variable. We only care about the key press data from the last trial, so within our if statement we have defined the condition we care about (i.e. if no key press data is registered from the last trial, then do...) and defined the code that is to execute after the condition is true. Let's now define our break trial:</p>
+<pre><code>// break trial
 var break_trial = {
     type: 'html-keyboard-response',
     stimulus: '&lt;p&gt;Great job! Feel free to take a quick break.&lt;/p&gt;'+
@@ -175,17 +195,9 @@ var break_trial = {
 }
 timeline.push(break_trial)
 
-// trial 2
-my_second_shuffled_images.forEach(my_second_shuffled_images =&gt; {
-    timeline.push({
-        type: 'image-keyboard-response',
-        stimulus: my_second_shuffled_images, // let's call our second randomized array containing our other set of images
-        choices: letter_keys,
-        trial_duration: 3000
-    })
-})
+// trial 2 is the same structure as above
 </code></pre>
-<p>We're done! We have defined our experiment using a combination of both looped and non-looped single trials (i.e. break_trial). Now all that's left to do is to give the participant a brief message at the end to thank them for their participation and to include the initializaion object, without which our experiment will not work. It is at this point that we can also redirect participants to other sites using the <code>on_finish:</code> parameter. For more information on how to do that, please see <a href="../hosting/">Hosting/Crediting</a>. Let's finish off our experiment now:</p>
+<p>We're done! We have defined our experiment using a combination of both looped and non-looped single trials (i.e. break_trial and image trials). Now all that's left to do is to give the participant a brief message at the end to thank them for their participation and to include the initializaion object, without which our experiment will not work. It is at this point that we can also redirect participants to other sites using the <code>on_finish:</code> parameter. For more information on how to do that, please see <a href="../hosting/">Hosting/Crediting</a>. Let's finish off our experiment now:</p>
 <pre><code>// end trial
 
 var end_trial = {
@@ -198,7 +210,7 @@ jsPsych.init({
     timeline: timeline
 });
 </code></pre>
-<p>Now all that's left to do is to <a href="https://ezhdhtiwdg.cognition.run/">test run</a> our experiment now to make sure it functions as intended. </p></div>
+<p>Now all that's left to do is to <a href="https://msyktpdtdi.cognition.run">test run</a> our experiment now to make sure it functions as intended. </p></div>
             </div>
         </div>
 
